@@ -1,4 +1,4 @@
-import FifaPlayers from '../model/FifaPlayers'; 
+import FifaPlayers from '../model/FifaPlayers';
 import { DatabaseModel } from '../model/DatabaseModel';
 
 // Jest.mock para o DatabaseModel
@@ -27,9 +27,9 @@ describe('FifaPlayers', () => {
                 rows: [
                     {
                         playerid: 1,
-                        nome: 'Cristiano Ronaldo',
-                        rating: 99,
-                        // adicione outros campos conforme necessário
+                        nome: 'Jogador 1',
+                        time: 'Time A',
+                        rating: 85,
                     },
                 ],
             };

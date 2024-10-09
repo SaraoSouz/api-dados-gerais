@@ -1,4 +1,4 @@
-import Netflix from '../model/Netflix'; 
+import Netflix from '../model/Netflix';
 import { DatabaseModel } from '../model/DatabaseModel';
 
 // Jest.mock para o DatabaseModel
@@ -27,9 +27,9 @@ describe('Netflix', () => {
                 rows: [
                     {
                         show_id: '1',
-                        title: 'Stranger Things',
-                        type: 'Show',
-                        // adicione outros campos conforme necessário
+                        title: 'Título 1',
+                        type: 'Movie',
+                        release_year: 2020,
                     },
                 ],
             };
@@ -37,6 +37,7 @@ describe('Netflix', () => {
 
             const result = await Netflix.listarNetflixTitles();
             expect(result).toEqual(mockResult.rows);
+            expect(mockDatabase.query).toHaveBeenCalledWith('SELECT * FROM netflix_titles;');
         });
 
         it('deve retornar uma mensagem de erro em caso de falha', async () => {
@@ -54,6 +55,7 @@ describe('Netflix', () => {
 
             const result = await Netflix.removerNetflixTitle('1');
             expect(result).toBe(true);
+            expect(mockDatabase.query).toHaveBeenCalledWith("DELETE FROM netflix_titles WHERE show_id='1'");
         });
 
         it('deve retornar false quando não houver título para remover', async () => {
@@ -62,6 +64,7 @@ describe('Netflix', () => {
 
             const result = await Netflix.removerNetflixTitle('2');
             expect(result).toBe(false);
+            expect(mockDatabase.query).toHaveBeenCalledWith("DELETE FROM netflix_titles WHERE show_id='2'");
         });
 
         it('deve retornar false e capturar erro em caso de falha', async () => {
@@ -69,6 +72,7 @@ describe('Netflix', () => {
 
             const result = await Netflix.removerNetflixTitle('1');
             expect(result).toBe(false);
+            expect(mockDatabase.query).toHaveBeenCalledWith("DELETE FROM netflix_titles WHERE show_id='1'");
         });
     });
 });
